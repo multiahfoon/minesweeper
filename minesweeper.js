@@ -7,33 +7,43 @@ var board = {
       row: 0,
       col: 0,
       isMine: true,
-      hidden: true
-
+      isMarked: false,
+      hidden: true,
+      surroundingMines: 0
     },
     {
       row: 0, 
       col: 1,
       isMine: false,
-      hidden: true
+      isMarked: false,
+      hidden: true,
+      surroundingMines: 0
 
     },
     {
       row: 1,
       col: 0,
       isMine: false,
-      hidden: true
+      isMarked: false,
+      hidden: true,
+      surroundingMines: 0
     },
     {
       row: 1, 
       col: 1,
-      isMine: false,
-      hidden: true
+      isMine: true,
+      isMarked: false,
+      hidden: true,
+      surroundingMines: 0
     }
   ]
 };
 
 function startGame () {
   // Don't remove this function call: it makes the game work!
+  for(let i = 0; i < board.cells.length; i++) {
+    board.cells[i].surroundingMines = countSurroundingMines(board.cells[i]);
+  }
   lib.initBoard()
 }
 
@@ -52,10 +62,16 @@ function checkForWin () {
 // (there could be as many as 8). You don't have to get the surrounding
 // cells yourself! Just use `lib.getSurroundingCells`: 
 //
-//   var surrounding = lib.getSurroundingCells(cell.row, cell.col)
 //
 // It will return cell objects in an array. You should loop through 
 // them, counting the number of times `cell.isMine` is true.
 function countSurroundingMines (cell) {
+  var surroundingCells = lib.getSurroundingCells(cell.row, cell.col);
+  let count = 0;
+  for(let i = 0; i < surroundingCells.length; i++) {
+    if(surroundingCells[i].isMine == true) {
+      count++;
+    }
+  }
+  return count;
 }
-
