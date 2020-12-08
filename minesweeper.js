@@ -2,88 +2,28 @@ document.addEventListener('DOMContentLoaded', startGame)
 
 // Define your `board` object here!
 var board = {
-  cells: [
-    {
-      row: 0,
-      col: 0,
-      isMine: false,
-      isMarked: false,
-      hidden: true,
-      surroundingMines: 0
-    },
-    {
-      row: 0, 
-      col: 1,
-      isMine: false,
-      isMarked: false,
-      hidden: true,
-      surroundingMines: 0
-
-    },
-    {
-      row: 0,
-      col: 2,
-      isMine: false,
-      isMarked: false,
-      hidden: true,
-      surroundingMines: 0
-    },
-    {
-      row: 1, 
-      col: 0,
-      isMine: false,
-      isMarked: false,
-      hidden: true,
-      surroundingMines: 0
-    },
-    {
-      row: 1,
-      col: 1,
-      isMine: false,
-      isMarked: false,
-      hidden: true,
-      surroundingMines: 0
-    },
-    {
-      row: 1, 
-      col: 2,
-      isMine: false,
-      isMarked: false,
-      hidden: true,
-      surroundingMines: 0
-    },
-    {
-      row: 2, 
-      col: 0,
-      isMine: false,
-      isMarked: false,
-      hidden: true,
-      surroundingMines: 0
-    },
-    {
-      row: 2, 
-      col: 1,
-      isMine: false,
-      isMarked: false,
-      hidden: true,
-      surroundingMines: 0
-    },
-    {
-      row: 2, 
-      col: 2,
-      isMine: false,
-      isMarked: false,
-      hidden: true,
-      surroundingMines: 0
-    }
-  ],
-  numberOfMines: 2
+  cells: []
 };
 
-
+function generateBoardCells() {
+  for(let i = 0; i < 3; i++) {
+    for(let j = 0; j < 3; j++) {
+      board.cells.push({
+        row: i,
+        col: j,
+        isMine: false,
+        isMarked: false,
+        hidden: true,
+        surroundingMines: 0
+      });
+    }
+  }
+  board.numberOfMines = 2;
+}
 
 
 function startGame () {
+  generateBoardCells();
   generateRandomMine();
   
   // loop will check how many mines surround each cell
@@ -98,7 +38,7 @@ function startGame () {
   boardDisplay.addEventListener('click', checkForWin);
   boardDisplay.addEventListener('contextmenu', checkForWin);
   
-  lib.initBoard()
+  lib.initBoard();
 }
 
 function generateRandomMine () {
