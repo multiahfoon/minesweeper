@@ -6,7 +6,7 @@ var board = {
     {
       row: 0,
       col: 0,
-      isMine: true,
+      isMine: false,
       isMarked: false,
       hidden: true,
       surroundingMines: 0
@@ -21,8 +21,8 @@ var board = {
 
     },
     {
-      row: 1,
-      col: 0,
+      row: 0,
+      col: 2,
       isMine: false,
       isMarked: false,
       hidden: true,
@@ -30,30 +30,92 @@ var board = {
     },
     {
       row: 1, 
+      col: 0,
+      isMine: false,
+      isMarked: false,
+      hidden: true,
+      surroundingMines: 0
+    },
+    {
+      row: 1,
       col: 1,
+      isMine: false,
+      isMarked: false,
+      hidden: true,
+      surroundingMines: 0
+    },
+    {
+      row: 1, 
+      col: 2,
+      isMine: false,
+      isMarked: false,
+      hidden: true,
+      surroundingMines: 0
+    },
+    {
+      row: 2, 
+      col: 0,
+      isMine: false,
+      isMarked: false,
+      hidden: true,
+      surroundingMines: 0
+    },
+    {
+      row: 2, 
+      col: 1,
+      isMine: false,
+      isMarked: false,
+      hidden: true,
+      surroundingMines: 0
+    },
+    {
+      row: 2, 
+      col: 2,
       isMine: false,
       isMarked: false,
       hidden: true,
       surroundingMines: 0
     }
   ],
-  numberOfMines: 1
+  numberOfMines: 2
 };
-function startGame () {
 
+
+
+
+function startGame () {
+  generateRandomMine();
+  
   // loop will check how many mines surround each cell
   for(let i = 0; i < board.cells.length; i++) {
     // the current cell is given a value from the output of the following function
     board.cells[i].surroundingMines = countSurroundingMines(board.cells[i]);
   }
-
-
+  
+  
+  
   const boardDisplay = document.getElementsByClassName('board')[0];
   boardDisplay.addEventListener('click', checkForWin);
   boardDisplay.addEventListener('contextmenu', checkForWin);
   
   lib.initBoard()
 }
+
+function generateRandomMine () {
+  let randomIndex = [];
+  while(randomIndex.length < board.numberOfMines) {
+    let randomNum = Math.floor(Math.random() * board.cells.length);
+    if(!randomIndex.includes(randomNum)) {
+      randomIndex.push(randomNum);
+    }
+  }
+
+  for(let i = 0; i < board.numberOfMines; i++) {
+    board.cells[randomIndex[i]].isMine = true;
+  }
+}
+
+
 
 let rightGuess = [];
 let rightMark = [];
