@@ -48,9 +48,9 @@ function startGame () {
   }
 
 
-  const displayBoard = document.getElementsByClassName('board')[0];
-  displayBoard.addEventListener('click', checkForWin);
-  displayBoard.addEventListener('contextmenu', checkForWin);
+  const boardDisplay = document.getElementsByClassName('board')[0];
+  boardDisplay.addEventListener('click', checkForWin);
+  boardDisplay.addEventListener('contextmenu', checkForWin);
   
   lib.initBoard()
 }
